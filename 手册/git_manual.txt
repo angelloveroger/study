@@ -1,0 +1,132 @@
+===========================================git配置和初始化本地仓库
+
+1.Git安装成功之后，首先需要进行设置，包括用户名，邮箱【global将设置应用于整个git目录】
+	git config [--global] user.name '用户名'
+	git config [--global] user.email '邮箱'
+
+2.创建本地git版本库
+	git init
+
+
+
+===========================================文件提交版本库
+
+1.本地文件添加到暂存区
+	git add 文件名
+
+2.暂存区文件添加到本地git版本库	
+	git commit -m '提交备注信息，方便后期查找'
+
+3.文件提交 远程仓库
+	git push 
+
+
+
+===========================================文件回滚		
+
+1.暂存区的文件回滚(文件在暂存区，未提交到本地git版本库，此时回滚仅会影响暂存区，不会作用到本地文件)	
+	git reset HEAD 文件名
+
+2.已提交本地git版本库的文件回滚(会作用于本地仓库，暂存区，本地)
+	git reset --hard git_id(版本id)
+
+
+
+===========================================分支
+
+1.创建新分支：
+	git branch branchName
+
+2.切换分支：
+	git checkout branchName
+
+3.上面9.10两个命令也可以合成为一个命令：
+	git checkout -b branchName
+
+4.将新建分支推送至远端
+	git push origin branchName:branchName	
+
+5.查看本地分支和远程分支
+	git branch 	(本地全部分支)
+	git branch -a 	(远程全部分支) 	
+
+6.删除本地分支
+	git branch -d branchName	
+	git push origin --delete branchName（删除远程分支）
+
+7.删除远程分支
+	git branch -d -r origin/branchName	
+	
+
+
+
+===========================================将本地仓库中项目推送到github：生成公匙，在github添加用户公匙
+
+1.生成公钥和私钥：
+	ssh-keygen -t rsa -C '用户邮箱'
+
+2.查看执行生成公钥和私钥：
+	ls ~/.ssh/    (公钥:id_rsa.pub  私钥:id_rsa)
+
+3.查看连接github是否成功：
+	ssh -T git@github.com	
+
+4.关联远程仓库：
+	git remote add origin https://github.com/angelloveroger/study.git
+
+5.关联后,第一次推送master分支的所有内容
+	git push -u origin master
+
+
+
+===========================================删除文件操作
+
+1.删除本地仓库文件fileName
+	git rm fileName						【第一步：删除本地文件】
+	git commit -m 'delete fileName'  	【将删除操作作用于本地git版本库】
+ 
+2.	①：删除本地文件fileName，并删除远程仓库fileName
+		git rm fileName
+		git commit -m 'delete fileName'
+		git push
+
+	②：如果想删除远程仓库中index.html文件，而保留本地index.html文件：	
+		git rm -r --cached  index.html 
+		git commit -m 'delete index.html'
+		git push
+
+3.拉取本地仓库文件fileName
+	git checkout fileName
+
+4.拉取远程仓库文件fileName
+	git checkout origin/master -- fileName		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

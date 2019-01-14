@@ -1,0 +1,27 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>layui日期</title>
+	<script src="extensions/layui-2.4.5/layui.js"></script>
+	<link rel="stylesheet" href="extensions/layui-2.4.5/css/layui.css">
+</head>
+<body>
+	
+<div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+  <input type="text" class="layui-input" id="test1">
+</div>
+ 
+<script src="/static/build/layui.js"></script>
+<script>
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+  
+  //执行一个laydate实例
+  laydate.render({
+    elem: '#test1' //指定元素
+  });
+});
+</script>
+	
+</body>
+</html>

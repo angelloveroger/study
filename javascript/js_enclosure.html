@@ -1,0 +1,40 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>富文本编辑器</title>
+	<link rel="stylesheet" href="extensions/layui-2.4.5/css/layui.css">
+	<script src="extensions/layui-2.4.5/layui.js"></script>
+</head>
+<body>
+	
+
+<div>
+	<textarea name="content" id="content" cols="30" rows="10"></textarea>
+	<input type="submit" value="提交">
+</div>
+</body>
+
+
+<!-- 其中<textarea name="post[content]" id="editor" style="display: none;"></textarea>是layedit的目标元素，建立编辑器的js代码如下： -->
+<script>
+
+
+
+
+	layui.use('layedit', function(){
+	  var layedit = layui.layedit;
+	  
+		//注意：layedit.set 一定要放在 build 前面，否则配置全局接口将无效。
+		layedit.build('content'); //建立编辑器
+	});
+	
+</script>
+
+
+
+
+
+
+
+
+</html>

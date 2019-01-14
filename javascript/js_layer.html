@@ -1,0 +1,40 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>lay弹窗控件</title>
+	<script src="extensions/jquery-3.0.0/jquery-3.0.0.min.js"></script>
+	<script src="extensions/layer-3.1.1/layer.js"></script>
+</head>
+<body>
+	
+</body>
+<script>
+	$(function(){
+		
+			//询问框=
+			layer.confirm('layer弹窗现在了解了么？', {
+			  btn: ['了解了','想学习'] //按钮
+			}, function(){
+			  layer.msg('happy enjoy yourself', {icon: 1});
+			}, function(){
+			  /*layer.msg('请前往layer.layui.com学习', {
+			    time: 30000, //20s后自动关闭
+			    btn: ['前往给不了a标签', '不了']
+			  });*/
+					layer.open({
+                        content: '请前往layer.layui.com学习',
+                        btn: ['确认', '取消'],
+                        yes: function(index, layero) { //确认按钮
+                            window.location.href='http://layer.layui.com';
+                        },
+                        btn2: function(index, layero) { //取消按钮
+                        }
+                        ,
+                        cancel: function() { //关闭弹框按钮
+                        }
+                    });
+			});
+		});
+	
+</script>
+</html>

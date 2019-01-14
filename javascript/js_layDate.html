@@ -1,0 +1,19 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>layDate日期控件</title>
+	<script src="extensions/laydate-5.0.9/laydate.js"></script>
+</head>
+<body>
+	默认日期控件：<input type="date" name="defaultDate" id="defaultDate"><br /><br />
+	layDate日期控件：<input type="text" name="layDate" id="layDate">
+</body>
+<script src="extensions/laydate-5.0.9/laydate.js"></script>
+<script>
+	laydate.render({
+	  elem: '#layDate'
+	  ,type: 'datetime'
+	});
+
+</script>
+</html>

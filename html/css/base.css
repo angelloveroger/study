@@ -1,0 +1,200 @@
+*{
+	margin: 0;
+}
+.cssAttribute{
+	width: 50px; /*元素宽度：50px/3em/25%*/
+	height: 35px;	/*元素高度：35px/2em/50%*/
+	background-color: #fff;	/*元素背景颜色*/
+	background-image: url('./img/zhangjunning.jpg'); /*元素背景图片*/
+	border: 1px solid #e13342; /*元素边框 border-top/border-left...*/
+	margin: 10px; /*元素外边距 margin-top/margin-right...*/
+	padding: 5px; /*元素内边距 padding-bottom/padding-left...*/
+	position: absolute; /*元素位移 relative/fixed...*/
+	left: 10px; /*元素位移 right/top...*/
+	float: left; /*元素浮动 left/right*/
+	clear: both; /*元素清除浮动 left/right...*/
+	line-height: 20px; /*元素行高*/
+	text-align: center; /*文本位置 left/right*/
+	font-size: 15px; /*文字大小*/
+	font-family: "Times New Roman"; /*文字字体*/
+	max-height: 50px; /*最大行高 min-height：最小行高*/
+	min-width: 15px; /*最小宽度 max-width：最大宽度*/
+	visibility: hidden; /*元素可见性 visible*/
+	display: inline; /*块级元素行内显示*/
+	opacity: 0.5;	/*元素透明度*/
+
+	transform: translate(500px,50px);	/*移动*/
+	transform: rotate(180deg);	/*旋转*/
+	transform: scale(2,5);	/*缩放*/
+	transform: skew(20deg,15deg); /*倾斜*/
+	/*-webkit-transform:translate(100px,100px);		支持safari chrome*/
+	/*-ms-transform:translate(100px,50px);	支持IE*/
+	/*-o-transform:translate(100px,50px);		支持opera*/
+	/*-moz-transform:translate();		支持FireFox*/
+}
+
+
+
+.bframe{
+	border:1px solid #f3ad3d;
+	background-color: #eee
+}
+.box{
+	width: 250px;
+	height: 150px;
+	text-align: center;
+}
+.d1{
+	opacity: 0.5;
+	background: #eee;
+	position: fixed;/*跟随滚动*/
+	left:50%;
+	top: 15px;
+}
+.d2{
+	background: #ccc;
+	position: absolute;/*绝对位移，不占用位置*/
+	left: 15%; 	
+}
+.d3{
+	background: #aaa;
+	position: relative;/*相对位移，占用位置*/
+	left: 5%;
+	top: 20px;
+}
+
+.p{
+	border: 1px solid #555;
+	margin-top: 20px;
+	background-color: #eee;
+}
+.p1{
+	min-height: 10px;
+	max-height: 50px;
+	max-width: 200px;
+}
+.p2{
+	line-height:25px;
+	max-width: 150px;
+}
+.p3{
+	line-height:35px;
+	max-width: 250px;
+}
+.box3{
+	width: 50%;
+	height: 350px;
+	margin-top: 25px;
+	/*cursor:cell;*/  /*鼠标样式*/
+}
+.box3 ul li{
+	display: inline; /*块级元素行内显示*/
+}
+.box4{
+	background-color: #8aeaea;
+	width: 50px;
+	height: 50px;
+	position: relative;
+	left: 50px;
+	top: 25px;
+	visibility: visible;	/*元素可见性:显示*/
+}
+.box5{
+	background-color: #5378aa;
+	width: 50px;
+	height: 50px;
+	position: relative;
+	left: 100px;
+	top: 25px;
+	visibility: hidden;		/*元素可见性:隐藏*/
+}
+
+/*===============================变形==========================================*/
+.box6{
+	margin-top: 50px;
+	width: 150px;
+	height: 150px;
+	border: 1px solid #333;
+	background-color: #00ffff;
+	transform: translate(500px,50px);	/*移动*/
+	transform: rotate(180deg);	/*旋转*/
+	transform: scale(2,5);	/*缩放*/
+	transform: skew(20deg,15deg); /*倾斜*/
+}
+
+/*===============================动画=====================================*/
+.box111{
+	margin: 50px 0px;
+	width: 100%;
+	height: 750px;
+	border: 1px solid #222;
+}
+.box100{
+	width: 100px;
+	height: 100px;
+	border: 1px solid #333;
+	background-color: #ff0000;
+	position: relative;
+	animation: anim 1s /*infinite alternate*/;
+}
+@keyframes anim{
+	0%{
+		background: #ff0000;
+		left:100%;
+		top:0%
+	}
+	20%{
+		background: #00ff00;
+		left:25%;
+		top:100%
+	}
+	50%{
+		background: #0000ff;
+		left:50%;
+		top:0%
+	}
+	75%{
+		background: #00ffff;
+		left:75%;
+		top:100%
+	}
+	100%{
+		background: #ffff00;
+		left:0%;
+		top:0%
+	}
+}
+
+/*===============================列===========================================*/
+.box7{
+	color: #ff00ff;
+	padding: 50px 0px 50px 10px;
+	line-height: 45px;
+	background-color: #ddd;
+	column-count: 5;
+	column-gap: 15px;
+	column-rule: 2px outset #00ffff;
+}
+
+/*===============================瀑布流===========================================*/
+.pubuliu{
+	column-width: 350px;
+	column-gap: 150px;
+}
+.pubuliu div{
+	width: 750px;
+	margin: 25px 0;
+}
+
+
+/* 
+html5.html
+*/
+.media{
+	width: 500px;
+	border: 1px solid #aaa;
+	background-color: #eee;
+}
+.media audio,video{
+	margin: 15px auto;
+}
