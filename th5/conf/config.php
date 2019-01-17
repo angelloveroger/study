@@ -7,6 +7,8 @@
  */
 
 return array(
-    'app_debug' => true,
+    'app_debug'    => true,
+    // 场景配置：再在同级目录新建office.php进行配置
+    'app_status'   => 'office'
 
 );
