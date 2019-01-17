@@ -34,11 +34,19 @@ class Index
 	 * @return [type] [description]
 	 */
 	public function useConfig() {
-		$res = Config::get();          		// 1.引入然后使用
-		$res = \think\Config::get();		// 2.直接路径调用
-		Config::set('user', 'hellokitty');	// 设置    Config::set(配置，值[，作用域])
-		Config::get('user');	        // 获取配置。存在返回相应的值，不存在返回NULL   Config::get(配置[, 作用域])
-		Config::has('user');				// 判断配置是否存在，返回bool(配置项为NULL时，也返回false)
+		// 1.引入然后使用
+		$res = Config::get();
+		// 2.直接路径调用
+		$res = \think\Config::get();
+		// 设置  config(配置，值[，作用域]);  Config::set(配置，值[，作用域])
+		config('user', 'helloworld');
+		Config::set('user', 'hellokitty');
+		// 获取配置。存在返回相应的值，不存在返回NULL  config(配置[, 作用域]);  Config::get(配置[, 作用域])
+		config('user');
+		Config::get('user');
+		// 判断配置项是否存在，返回bool(配置项为NULL时，也返回false)
+		config('?user');
+		Config::has('user');
 
 
 		dump($res);
