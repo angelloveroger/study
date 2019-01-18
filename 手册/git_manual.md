@@ -1,4 +1,4 @@
-#GIT使用手册
+# - GIT使用手册
 
 |	命令	|	说明	|	备注	|
 |-----------|-----------|-----------|
@@ -14,9 +14,40 @@
 |git log    |查看提交历史|每次显示三条|
 |git rm [--cached] file|删除暂存区和本地文件|--cached：删除暂存区文件，本地保留|
 |git clone url  |克隆    |从远程仓库克隆代码到本地|
-|git remote add origin url  |将本地仓库和远程仓库关联   |   |
+|git remote add origin git@github.com:userName/repository.git  |将本地仓库和远程仓库关联   |userName仓库用户名； repository仓库名|
+|git push [-u] origin master    |代码推送远程仓库   |-u可以关联本地和远程仓库，简化之后的操作
 |git mv [-f] oldname newname  |重命名    |-f强制性移动/重命名，如果新文件存在则会覆盖旧文件|
 |git add [-u] newname |添加到暂存区 |-u会更新git已经跟踪的文件|
 |   |   |   |
 |ssh-keygen -t rsa [-C 'remark']  |生成ssh密匙    |-C 'remark'为备注信息，密匙生成之后的路径位于：~/.ssh/|
 |ssh -T git@github.com  |查看ssh连接状态   |查看当前电脑与远程机器的连接状态|
+
+
+
+# - 常见问题说明
+>
+>### git push的时候每次都要输入用户名和密码
+> - 原因是在添加远程库的时候使用了https的方式。所以每次都要用https的方式push到远程库
+
+>#### 1.查看使用的传输协议:
+>>```
+$ git remote -v
+>>origin  https://github.com/angelloveroger/study (fetch)
+>>origin  https://github.com/angelloveroger/study (push)
+```
+
+>#### 2.重新设置成ssh的方式:
+>>```
+>>$ git remote rm origin
+>>$ git remote add origin git@github.com:username/repository.git
+>>$ git push -u origin master
+```
+
+>#### 3.再次查看使用的传输协议:
+>>```
+>>$ git remote -v
+>>origin  git@github.com:angelloveroger/study.git (fetch)
+>>origin  git@github.com:angelloveroger/study.git (push)
+```
+>
+---
