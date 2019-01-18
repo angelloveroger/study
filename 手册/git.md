@@ -13,4 +13,7 @@
 |git status |查看文件状态|红色：本地有修改未提交到暂存区；  绿色：暂存区未提交到版本库|
 |git log    |查看提交历史|每次显示三条|
 |git rm [--cached] file|删除暂存区和本地文件|--cached：删除暂存区文件，本地保留|
-|git clone url  |克隆|从远程仓库克隆代码到本地|
+|git clone url  |克隆    |从远程仓库克隆代码到本地|
+|   |   |   |
+|ssh-keygen -t rsa [-C 'remark']  |生成ssh密匙    |-C 'remark'为备注信息，密匙生成之后的路径位于：~/.ssh/|
+|ssh -T git@github.com  |查看ssh连接状态   |查看当前电脑与远程机器的连接状态|
