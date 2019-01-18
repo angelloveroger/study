@@ -14,6 +14,9 @@
 |git log    |查看提交历史|每次显示三条|
 |git rm [--cached] file|删除暂存区和本地文件|--cached：删除暂存区文件，本地保留|
 |git clone url  |克隆    |从远程仓库克隆代码到本地|
+|git remote add origin url  |将本地仓库和远程仓库关联   |   |
+|git mv [-f] oldname newname  |重命名    |-f强制性移动/重命名，如果新文件存在则会覆盖旧文件|
+|git add [-u] newname |添加到暂存区 |-u会更新git已经跟踪的文件|
 |   |   |   |
 |ssh-keygen -t rsa [-C 'remark']  |生成ssh密匙    |-C 'remark'为备注信息，密匙生成之后的路径位于：~/.ssh/|
 |ssh -T git@github.com  |查看ssh连接状态   |查看当前电脑与远程机器的连接状态|
