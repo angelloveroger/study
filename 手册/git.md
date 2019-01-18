@@ -1,13 +1,16 @@
-#GIT使用
+#GIT使用手册
 
-|       名称      |       命令      |       作用      |
-|-----------------|----------------|----------------|
-|配置用户名name     | git config --global user.name '配置用户名name'| 提交代码时候身份信息标注    |   
-|配置邮箱email      | git config --global user.email 'email' |  提交代码时候身份信息标注    |   
-|初始化本地仓库      | git init |  初始化本地仓库，生成.git跟踪文件  |
-|提交文件①          | git add 文件/文件夹     | 提交文件第一步 提交到缓存区 |
-|提交文件②          | git commit -m '提交说明'  | 提交文件第二步 提交到本地仓库 |
-|提交文件③          | git push [-u origin master] | 第一次提交要输入可选信息，用以关联远程仓库 | 
-|查看文件状态        | git status | 显示当前文件状态：red 有修改未放入缓存区的  green 缓存区未提交到仓库的 |
-|克隆远程仓库文件     | git clone url  |    从已经存在的远程仓库获取文件  |
-|
+|	命令	|	说明	|	备注	|
+|-----------|-----------|-----------|
+|git config --global user.name 'name'|配置用户名|用以在版本库中跟踪用户|
+|git config --global user.email 'email'|配置用户邮箱|用以在版本库中跟踪用户|
+|git init   |初始化本地仓库|会在当前目录下创建.git文件夹|
+|git add file|将修改的文件添加到暂存区|	|
+|git commit -m 'remark'|提交到本地仓库|remark为提交备注信息，便于后期查看|
+|git reset HEAD file|将暂存区的文件从暂存区移除|仅将暂存区文件回滚到之前，本地文件保持修改之后|
+|git checkout -- file| 将本地文件回滚到修改之前|从暂存区取上次放入的文件覆盖到本地|
+|git reset --hard git_NO|代码回滚|将代码回滚到某一个版本，git_NO为git版本号|
+|git status |查看文件状态|红色：本地有修改未提交到暂存区；  绿色：暂存区未提交到版本库|
+|git log    |查看提交历史|每次显示三条|
+|git rm [--cached] file|删除暂存区和本地文件|--cached：删除暂存区文件，本地保留|
+|git clone url  |克隆|从远程仓库克隆代码到本地|
