@@ -3,8 +3,9 @@
 |	命令	|	说明	|	备注	|
 |-----------|-----------|-----------|
 |>>> git配置   |   |   |
-|git config --global user.name 'name'|配置用户名|用以在版本库中跟踪用户|
+|git config --global [user.name 'name']|配置用户名|用以在版本库中跟踪用户|
 |git config --global user.email 'email'|配置用户邮箱|用以在版本库中跟踪用户|
+|git config --list  |查看配置   |查看git中的所有配置项|
 |>>> 初始化本地仓，代码回滚   |   |   |
 |git init   |初始化本地仓库|会在当前目录下创建.git文件夹|
 |git add file|将修改的文件添加到暂存区|	|
@@ -20,7 +21,7 @@
 |git clone git@github.com:userName/repository.git  |从远程仓库克隆代码到本地    |userName:仓库用户名； repository:仓库名|
 |git remote add origin git@github.com:userName/repository.git  |将本地仓库和远程仓库关联   |userName:仓库用户名； repository:仓库名|
 |git push [-u] origin master    |代码推送远程仓库   |-u可以关联本地和远程仓库，简化之后的操作|
-|>>> git跟踪文件重命名   |   |   |
+|>>> git文件重命名   |   |   |
 |git mv [-f] oldname newname  |重命名    |-f强制性移动/重命名，如果新文件存在则会覆盖旧文件|
 |git add [-u] newname |添加到暂存区 |-u会更新git已经跟踪的文件|
 |>>> ssh密匙   |   |   |
@@ -36,7 +37,8 @@
 |   |--merged   |当前仓库已经被合并的分支|
 |   |--no-merged    |当前仓库未被合并的分支|
 |git merge branchName   |合并分支   |branchName:分支名  这个是要被合并的分支，即你当前所在的不是这个分支|
-|git branch -d branchName   |删除分支   |branchName:分支名|
+|git branch [-d] branchName   |删除分支   |branchName:分支名，仅删除被合并的分支|
+|   |-D |被删除的分支未被合并，将不能直接删除，需要用到-D参数|
 
 
 
