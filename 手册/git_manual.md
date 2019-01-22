@@ -1,21 +1,27 @@
 # - GIT使用手册
 
 |	命令	|	说明	|	备注	|
-|-----------|-----------|-----------|
+|-|:-:|:-:|
 |>>> git配置   |   |   |
-|git config --global [user.name 'name']|配置用户名|用以在版本库中跟踪用户|
-|git config --global user.email 'email'|配置用户邮箱|用以在版本库中跟踪用户|
-|git config --list  |查看配置   |查看git中的所有配置项|
+|git config [--local/global/system] --add section.key value |新增配置   |local:当前仓库配置；global:全局配置；system:系统配置|
+|git config [--local/global/system] --get section.key   |获取配置   |local配置路径:当前仓库下.git/.gitconfig|
+|git config [--local/global/system] --unset section.key |删除配置   |global配置路径:C:/Users/roger/.gitconfig|
+|git config [--local/global/system] -l  |查看配置    |system配置路径:安装目录下 mingw64/etc/gitconfig|
+|git config [--local/global/system] -e  |编辑配置项   |  |
+|git config [--local/global/system] section.key value   |配置项赋值  |   |
+|git config --list  |查看所有配置项    |   |
 |>>> 初始化本地仓，代码回滚   |   |   |
 |git init   |初始化本地仓库|会在当前目录下创建.git文件夹|
 |git add file|将修改的文件添加到暂存区|	|
 |git commit -m 'remark'|提交到本地仓库|remark为提交备注信息，便于后期查看|
-|git reset HEAD file|将暂存区的文件从暂存区移除|仅将暂存区文件回滚到之前，本地文件保持修改之后|
-|git checkout -- file| 将本地文件回滚到修改之前|从暂存区取上次放入的文件覆盖到本地|
-|git reset --hard git_NO|代码回滚|将代码回滚到某一个版本，git_NO为git版本号|
+|git reset [--soft] HEAD~/gitId |代码从仓库检出到暂存区    |取消提交到仓库；将指针指向暂存区：即本地,暂存区为最新代码，仓库为上次提交的修改|
+|   |[--mixed] HEAD~5/gitId |取消放入暂存区；将指针指向本地：即本地为最新修改，暂存区，仓库为前5次提交的修改|
+|   |[--hard] HEAD~8/gitId  |代码回滚；将指针指向仓库：此时仓库，暂存区，本地代码都回退到前面第八次的修改| 
+|git checkout -- file|代码从暂存区检出到本地   |从暂存区取上次放入的文件覆盖到本地|
 |>>> 查看文件状态，提交记录，移除文件   |   |   |
 |git status |查看文件状态|红色：本地有修改未提交到暂存区；  绿色：暂存区未提交到版本库|
 |git log    |查看提交历史|每次显示三条|
+|git reflog |查看所有分支所有操作历史   |包括已经删除的操作|
 |git rm [--cached] file|删除暂存区和本地文件|--cached：删除暂存区文件，本地保留|
 |>>> 代码克隆，本地代码关联远程仓   |   |   |
 |git clone git@github.com:userName/repository.git  |从远程仓库克隆代码到本地    |userName:仓库用户名； repository:仓库名|
