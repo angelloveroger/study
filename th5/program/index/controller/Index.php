@@ -2,7 +2,7 @@
 
 namespace app\index\controller;
 
-// 应用目录下的common为公共类库，不可以直接访问
+    // 应用目录下的common为公共类库，不可以直接访问
 // 需要引入common模块中的控制器并起别名，然后实例化类得到对象，通过对象调用属性和方法
 use app\common\controller\Index as commonIndex;
 
@@ -52,6 +52,9 @@ class Index
         dump($res);
     }
 
+    /**think/Env类库
+     *
+     */
     public function useEnv() {
         // 获取env配置。存在返回相应的值，不存在则返回NULL
         $env = Env::get('state');
