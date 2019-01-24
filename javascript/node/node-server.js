@@ -21,9 +21,15 @@ console.log('node server is running...');*/
 //classA.add('Angel', ['lilei', 'hanmeimei']);
 
 /*加载fs模块读取文件信息
-var readFile = require('fs');
-var data = readFile.readFileSync('abc.txt');
+var fs = require('fs');
+// 堵塞模式
+var data = fs.readFileSync('abc.txt');
 console.log(data.toString());
+// 非堵塞模式
+fs.readFile('abc.txt', function(err, data){
+	if(err){return console.error(err)}
+	console.log(data.toString());
+});
 */
 
 /*==================================================================================API接口
