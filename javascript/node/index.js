@@ -45,3 +45,8 @@ htmlData.on('error', function(){
 });
 
  
+ /*==================================================================================npm使用
+npm -v 					查看npm版本
+npm install npm -g  	升级npm
+npm install moduleName	安装模块
+ */
