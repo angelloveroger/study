@@ -68,4 +68,10 @@ class Index
         dump($env);
     }
 
+    public function getConfig(){
+        //var_dump(Env::get('app_status'));
+        var_dump(Config::get());
+    }
+
+
 }
