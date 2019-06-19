@@ -15,6 +15,6 @@ class Index{
 
     public function index(){
 
-        return Db::table('test')->column('title, img, descri');
+        return Db::table('test')->column('title, img, detail');
     }
 }
