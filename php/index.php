@@ -3,11 +3,10 @@
 //$preg = '/(i?)<img.*? src=\"?(.*?\\.(jpg|gif|bmp|bnp|png))\".*? />/';
 
 $str = '<img src="http://local.any/upload/c14270a0b6a3ebc5/e66731577f87c81a.jpg style="width:100%; height: auto" />dfeadfd';
+//echo strpos($str, 'style="width:100%; height: auto" />');exit;
+//echo substr($str, strpos($str, 'style="width:100%; height: auto" />')+35);
 
-echo strlen('style="width:100%; height: auto" />');
-echo substr($str, strpos($str, 'style="width:100%; height: auto" />')+35);
-
-exit;
+echo base64_decode('YzEwZTI4N2YyYjFlN2Y1NDdiMjBhOWViY2UyYWFkYTI2YWIyMGVmMg==');exit;
 $str = base64_encode('c10e287f2b1e7f547b20a9ebce2aada26ab20ef2');
 echo $str;
 

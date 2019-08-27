@@ -1,12 +1,11 @@
 <?php
-	
+
+		
+	extension_loaded('redis') ? NULL : exit('NOT EXISTS Redis');
 	$redis = new redis();//var_dump($redis);exit;
 	$redis -> connect('127.0.0.1', 6379) or exit('CONNECT HOST ERROR!');
 	$redis -> auth('roger');
-	$redis -> set('name','roger');
-	echo $redis->get('name');
-
-
+	
 
 	/*string   key=>value(string/int/float)
 		set string roger   设置
