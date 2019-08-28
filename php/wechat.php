@@ -103,19 +103,16 @@
 
 
 
-
-	/*
-	 * 	@param string $url 发送请求的url
-     *  @param array  $postData 发送参数
-     *  @return array curl返回结果为对象,用json_decode()转换为数组返回
-	 */
+    /**
+     * @param $url              发送请求的url
+     * @param array $postData   发送参数
+     * @return mixed|string     返回结果为对象,用json_decode()转换为数组返回
+     */
 	function  curl_post($url, $postData=array()){
-
 		//接收参数为空判断
 		if($url){
 			return 'url参数不可为空！';
 		}
-
 		//初始化
 		$ch = curl_init();
 		//配置参数
@@ -127,7 +124,6 @@
         $res = curl_exec($ch);
         //关闭资源
         curl_close($ch);
-
         //返回数据
         $result = json_decode($res, TRUE);
         return $result;
