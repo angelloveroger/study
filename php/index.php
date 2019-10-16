@@ -1,7 +1,11 @@
 <?php
 
+var_dump(25/7 );
+var_dump((int)(25/7) );
+var_dump(round(25/7) );
 //$preg = '/(i?)<img.*? src=\"?(.*?\\.(jpg|gif|bmp|bnp|png))\".*? />/';
 
+exit;
 $str = '<img src="http://local.any/upload/c14270a0b6a3ebc5/e66731577f87c81a.jpg style="width:100%; height: auto" />dfeadfd';
 //echo strpos($str, 'style="width:100%; height: auto" />');exit;
 //echo substr($str, strpos($str, 'style="width:100%; height: auto" />')+35);
