@@ -22,7 +22,7 @@ final class gd {
     private static $inst;
 
     private function __construct($len, $width, $height, $fontSize) {
-        extension_loaded( 'gd' ) ? NULL : exit( 'GD NOT EXISTS!' );
+        extension_loaded('gd') ? NULL : exit('GD NOT EXISTS!');
         self::$fontSize = $fontSize;
         self::$width = $width;
         self::$height = $height;
@@ -42,8 +42,8 @@ final class gd {
      * @return gd
      */
     public static function returnInst($len = 4, $width = 100, $height = 30, $fontSize = 10) {
-        if( !self::$inst instanceof self ) {
-            self::$inst = new self( $len, $width, $height, $fontSize );
+        if (!self::$inst instanceof self) {
+            self::$inst = new self($len, $width, $height, $fontSize);
         }
         return self::$inst;
     }
@@ -54,7 +54,7 @@ final class gd {
      * @return resource
      */
     public static function createImg() {
-        return self::$img = imagecreatetruecolor( self::$width, self::$height );
+        return self::$img = imagecreatetruecolor(self::$width, self::$height);
     }
 
     /**画布填充默认为【白色】的背景色
@@ -65,8 +65,8 @@ final class gd {
      * @return mixed
      */
     public static function setBgColor($img, $red = 255, $green = 255, $blue = 255) {
-        $bgColor = imagecolorallocate( $img, $red, $green, $blue );
-        imagefill( $img, 0, 0, $bgColor );
+        $bgColor = imagecolorallocate($img, $red, $green, $blue);
+        imagefill($img, 0, 0, $bgColor);
         return self::$img = $img;
     }
 
@@ -78,15 +78,15 @@ final class gd {
      */
     public static function randStr($len = 4, $min = 0, $max = 9) {
         $str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $min > strlen( $str ) - 1 ? $min = 0 : NULL;
-        $max > strlen( $str ) - 1 ? $max = strlen( $str ) - 1 : NULL;
-        if( $min >= $max ) {
+        $min > strlen($str) - 1 ? $min = 0 : NULL;
+        $max > strlen($str) - 1 ? $max = strlen($str) - 1 : NULL;
+        if ($min >= $max) {
             $min = 0;
-            $max = strlen( $str ) - 1;
+            $max = strlen($str) - 1;
         }
         $randStr = '';
-        for( $i = 0; $i < $len; $i++ ) {
-            $randStr .= $str[rand( $min, $max )];
+        for ($i = 0; $i < $len; $i++) {
+            $randStr .= $str[rand($min, $max)];
         }
         return $randStr;
     }
@@ -97,16 +97,16 @@ final class gd {
      * @return mixed
      */
     public static function drawImg($img, $maxColor = 0) {
-        for( $i = 0; $i < self::$len; $i++ ) {
-            $fontContent = self::randStr( 1 );
-            $red = rand( 0, $maxColor );
-            $green = rand( 0, $maxColor );
-            $blue = rand( 0, $maxColor );
+        for ($i = 0; $i < self::$len; $i++) {
+            $fontContent = self::randStr(1);
+            $red = rand(0, $maxColor);
+            $green = rand(0, $maxColor);
+            $blue = rand(0, $maxColor);
             $fontSize = self::$fontSize;
-            $fontColor = imagecolorallocate( $img, $red, $green, $blue );
-            $x = ( $i * self::$width / self::$len ) + rand( 0, self::$width / self::$len * 0.6 );
-            $y = rand( self::$height / 2 - 15, self::$height / 2 + 5 );
-            imagestring( $img, $fontSize, $x, $y, $fontContent, $fontColor );
+            $fontColor = imagecolorallocate($img, $red, $green, $blue);
+            $x = ($i * self::$width / self::$len) + rand(0, self::$width / self::$len * 0.6);
+            $y = rand(self::$height / 2 - 15, self::$height / 2 + 5);
+            imagestring($img, $fontSize, $x, $y, $fontContent, $fontColor);
         }
         return self::$img = $img;
     }
@@ -114,10 +114,10 @@ final class gd {
 
 }
 
-header( 'Content-type: image/png' );
+header('Content-type: image/png');
 
 $obj = gd::returnInst();
 $obj::createImg();
-$obj::setBgColor( $obj::$img );
-$obj::drawImg( $obj::$img, 6 );
-imagepng( $obj::$img );
+$obj::setBgColor($obj::$img);
+$obj::drawImg($obj::$img, 6);
+imagepng($obj::$img);
