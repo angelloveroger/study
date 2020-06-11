@@ -158,15 +158,15 @@ class rogerClass {
      * @param $file_name  日志名字
      * @param $data       记录数据
      */
-    public function api_log($file_name, $data) {
-        $path = './Logs/' . date('Y-m') . '/' . date('d') . '/';
-        if (!is_dir($path)) {
-            mkdir($path, 0777, true);
-            @chmod($path, 0777);
-        }
-        $real_name = $path . $file_name;
-        file_put_contents($real_name, "\r\n===" . date("Y-m-d H:i:s") . "===" . "\r\n" . "logs=" . var_export($data, TRUE) . "\r\n\r\n\r\n", FILE_APPEND);
+    public function customLog($file_name, $data) {
+    $path = './Logs/' . date('Y-m') . '/' . date('d') . '/';
+    if (!is_dir($path)) {
+        mkdir($path, 0777, true);
+        @chmod($path, 0777);
     }
+    $real_name = $path . $file_name;
+    file_put_contents($real_name, "\r\n===" . date("Y-m-d H:i:s") . "===" . "\r\n" . "logs=" . var_export($data, TRUE) . "\r\n\r\n\r\n", FILE_APPEND);
+}
 
 
 
@@ -476,10 +476,10 @@ class rogerClass {
      * @param array $postFields 请求参数
      * @return mixed            返回结果为对象,用json_decode()转换为数组返回
      */
-    function curlPost($url, $postFields) {
+    function curlPost($url, $postFields, $type='1') {
         !extension_loaded('curl') ? EXIT('CURL NOT EXISTS!') : NULL;
         !is_string($url) || strlen(trim($url)) == 0 ? EXIT('PLEASE CHECK YOUR URL!') : NULL;
-        $postFields = http_build_query($postFields);
+        $postFields = $type==1 ? http_build_query($postFields) : json_encode($postFields);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
