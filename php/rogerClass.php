@@ -165,7 +165,7 @@ class rogerClass {
         @chmod($path, 0777);
     }
     $real_name = $path . $file_name;
-    file_put_contents($real_name, "\r\n===" . date("Y-m-d H:i:s") . "===" . "\r\n" . "logs=" . var_export($data, TRUE) . "\r\n\r\n\r\n", FILE_APPEND);
+    file_put_contents($real_name, "\r\n=============" . date("Y-m-d H:i:s") . "=============\r\n" . var_export($data, TRUE) . "\r\n\r\n\r\n", FILE_APPEND);
 }
 
 
@@ -470,13 +470,13 @@ class rogerClass {
         }
     }
 
-    /**
-     * 通过CURL发送HTTP请求
-     * @param string $url 请求URL
-     * @param array $postFields 请求参数
-     * @return mixed            返回结果为对象,用json_decode()转换为数组返回
+    /**通过CURL发送HTTP请求
+     * @param string $url
+     * @param array $postFields
+     * @param int $type
+     * @return mixed
      */
-    function curlPost($url, $postFields, $type='1') {
+    function curlPost($url='', $postFields=[], $type=1) {
         !extension_loaded('curl') ? EXIT('CURL NOT EXISTS!') : NULL;
         !is_string($url) || strlen(trim($url)) == 0 ? EXIT('PLEASE CHECK YOUR URL!') : NULL;
         $postFields = $type==1 ? http_build_query($postFields) : json_encode($postFields);
@@ -503,6 +503,15 @@ class rogerClass {
         $family = mb_substr($familyName, rand(0, mb_strlen($familyName) - 1), 1);
         $second = $secondName[rand(0, count($secondName))];
         return $family . $second;
+    }
+
+    /**格式化输出数组
+     * @param $data
+     */
+    public function pt($data){
+        if(!is_array($data)) return false;
+        echo '<pre>';
+        print_r($data);
     }
 
 
