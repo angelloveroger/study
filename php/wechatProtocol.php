@@ -94,9 +94,9 @@ class wechatProtocol{
 
 $obj = wechatProtocol::getInstance('http://139.186.69.124:8088');
 //获取登录二维码，扫码登录获取uuid
-/*$GetQrCode = $obj->wechatQuery('/api/Login/GetQrCode', ['uuid'=>'g4_-jsFX-YOjsApyjlsF']);
+$GetQrCode = $obj->wechatQuery('/api/Login/GetQrCode', ['uuid'=>'g4_-jsFX-YOjsApyjlsF']);
 $obj::$classRoger->customLog('GetQrCode.log', $GetQrCode['Data']['Uuid']);
-echo '<img src="'.$GetQrCode['Data']['QrBase64'].'" >';*/
+echo '<img src="'.$GetQrCode['Data']['QrBase64'].'" >';
 
 //根据uuid获取wxId
 /*$checkLogin = $obj->wechatQuery('/api/Login/CheckLogin', ['uuid'=>'A4bbVx1Qd8wyhjyxVV4z'], ['A4bbVx1Qd8wyhjyxVV4z']);
@@ -111,27 +111,27 @@ $obj::$classRoger->pt($twiceLogin);*/
 $obj::$classRoger->customLog('GetFriendCircleList.log', $friendCircleList);*/
 
 //发送朋友圈 POST /api/FriendCircle/SendFriendCircle
-$data = [
-    'type'          => 0,
-    'blackList'     => [
-        ''
-    ],
-    'withUserList'  => [
-        ''
-    ],
-    'mediaInfos'    => [
-        'url'       => '',
-        'imageUrl'  => 'https://www.jzbshebao.cn/Uploads/Public/Uploads/content/80-1.jpg',
-        'width'     => 400,
-        'height'    => 266,
-        'totalSize' => 24417
-    ],
-    'title'         => 'tupian',
-    'contentUrl'    => '',
-    'description'   => '',
-    'content'       => '年少的我们都是热烈而坚持的，那是一种光芒，引人入胜，我羡慕那些时光流逝却未能改变他们的人',
-    'wxId'          => 'wxid_mymhoxopirbj22'
-];
-$sendFriendCircle = $obj->wechatQuery('/api/FriendCircle/SendFriendCircle', $data);
-$obj::$classRoger->pt($sendFriendCircle);
+// $data = [
+//     'type'          => 0,
+//     'blackList'     => [
+//         ''
+//     ],
+//     'withUserList'  => [
+//         ''
+//     ],
+//     'mediaInfos'    => [
+//         'url'       => '',
+//         'imageUrl'  => 'https://www.jzbshebao.cn/Uploads/Public/Uploads/content/80-1.jpg',
+//         'width'     => 400,
+//         'height'    => 266,
+//         'totalSize' => 24417
+//     ],
+//     'title'         => 'tupian',
+//     'contentUrl'    => '',
+//     'description'   => '',
+//     'content'       => '年少的我们都是热烈而坚持的，那是一种光芒，引人入胜，我羡慕那些时光流逝却未能改变他们的人',
+//     'wxId'          => 'wxid_mymhoxopirbj22'
+// ];
+// $sendFriendCircle = $obj->wechatQuery('/api/FriendCircle/SendFriendCircle', $data);
+// $obj::$classRoger->pt($sendFriendCircle);
 
