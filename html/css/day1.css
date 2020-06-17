@@ -1,0 +1,11 @@
+body{
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+.label{
+    padding: 20px;
+    background: #eeeeee;
+}
+
