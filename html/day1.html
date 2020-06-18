@@ -1,37 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>html day1</title>
-    <link rel="stylesheet" href="./css/day1.css">
-</head>
-<body>
-<div class="label">
-<h1>h1一级标签|块级</h1>
-<h2>h2二级标签|块级</h2>
-<h3>h3三级标签|块级</h3>
-<h4>h4四级标签|块级</h4>
-<h5>h5五级标签|块级</h5>
-<h6>h6六级标签|块级</h6>
-<p>p这是一个段落|块级</p>
-    <hr>
-<strong>strong这是一个加粗的标签|行级</strong><br>
-<b>b这也是一个加粗的标签|行级</b><br>
-<em>em这是一个斜体|行级</em><br>
-<i>i这也是一个斜体|行级</i><br>
-<del>del这是一个删除线|行级</del><br>
-<s>s这还是一个删除线|行级</s><br>
-<ins>ins这是一个下划线|行级</ins><br>
-<u>u这还是一个下划线|行级</u>
-</div>
-<div class="label">
-    <div>div块盒|块级/无语义</div>
-    <span>span行盒|行级/无语义</span><br>
-</div>
-<div class="label">
-    <span><b>img标签</b>  src:图片资源 title:图片不显示的时候显示该属性值 alt:鼠标放上去的时候显示该属性值 height:图片高度像素 width:图片宽度像素 border:图片边框</span><br>
-    <img src="./img/zhangjunning%20(1).jpg" alt="图片不能显示的时候显示该属性" title="鼠标放上去的时候显示" heigth="" width="200" border="3">
-</div>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <title>html day1</title>
+        <!--<link rel="stylesheet" href="./css/reset.css">-->
+        <link rel="stylesheet" href="./css/day1.css">
+    </head>
+    <body>
+        <div class="lebel" id='top'>
+            <a href="#one">div1：常见文本标签</a><br>
+            <a href="#two">div2：行盒/块盒</a><br>
+            <a href="#three">div3：img标签</a><br>
+            <a href="#four">div4：a标签</a><br>
+        </div>
+        <div class="label" id='one'>
+            <h1>h1一级标签|块级</h1>
+            <h2>h2二级标签|块级</h2>
+            <h3>h3三级标签|块级</h3>
+            <h4>h4四级标签|块级</h4>
+            <h5>h5五级标签|块级</h5>
+            <h6>h6六级标签|块级</h6>
+            <p>p这是一个段落|块级</p><br>
+            <strong>strong这是一个加粗的标签|行级</strong><br>
+            <b>b这也是一个加粗的标签|行级</b><br>
+            <em>em这是一个斜体|行级</em><br>
+            <i>i这也是一个斜体|行级</i><br>
+            <del>del这是一个删除线|行级</del><br>
+            <s>s这还是一个删除线|行级</s><br>
+            <ins>ins这是一个下划线|行级</ins><br>
+            <u>u这还是一个下划线|行级</u>
+        </div>
+        <hr>
 
+        <div class="label" id='two'>
+            <div>div块盒|块级/无语义</div>
+            <span>span行盒|行级/无语义</span><br>
+        </div>
+        <hr>
+
+        <div class="label" id='three'>
+            <span><b>img标签</b>  src:图片资源 alt:鼠标放上去的时候显示该属性值 title:图片不显示的时候显示该属性值 height:图片高度像素 width:图片宽度像素 border:图片边框</span><br>
+            <img src="http://t8.baidu.com/it/u=1484500186,1503043093&fm=79&app=86&f=JPEG?w=1280&h=853" alt="图片不能显示的时候显示该属性" title="鼠标放上去的时候显示" heigth="" width="300" border="3">
+        </div>
+        <hr>
+
+        <div class="label" id='four'>
+            <span><b>a超链接标签</b> href:url链接 target:跳转方式（_self/_blank）</span><br>
+            <a href="https://www.baidu.com" target="_blank">a超链接：百度</a>
+        </div>
+        <hr>
+
+
+
+
+
+        
+        <div class="label">
+            <a href="#top">返回顶部</a>
+        </div>
+    </body>
 </html>

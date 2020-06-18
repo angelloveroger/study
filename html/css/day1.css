@@ -5,8 +5,7 @@ body{
 }
 
 .label{
-    padding: 20px 150px;
-    /*background: #E6E6FA;*/
+    padding: 20px 100px;
     background: -webkit-linear-gradient(top, #E1FFFF , #5F9EA0); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(top, #E1FFFF, #5F9EA0); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(top, #E1FFFF, #5F9EA0); /* Firefox 3.6 - 15 */
