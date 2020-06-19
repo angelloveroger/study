@@ -98,6 +98,7 @@ $GetQrCode = $obj->wechatQuery('/api/Login/GetQrCode', ['uuid'=>'g4_-jsFX-YOjsAp
 $obj::$classRoger->customLog('GetQrCode.log', $GetQrCode['Data']['Uuid']);
 echo '<img src="'.$GetQrCode['Data']['QrBase64'].'" >';
 
+
 //根据uuid获取wxId
 /*$checkLogin = $obj->wechatQuery('/api/Login/CheckLogin', ['uuid'=>'A4bbVx1Qd8wyhjyxVV4z'], ['A4bbVx1Qd8wyhjyxVV4z']);
 $obj::$classRoger->pt($checkLogin);*/
