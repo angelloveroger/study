@@ -470,29 +470,28 @@ class rogerClass {
         }
     }
 
-    /**通过CURL发送HTTP请求
-     * @param string $url
-     * @param array $postFields
-     * @param int $type
-     * @return mixed
-     */
-    function curlPost($url='', $postFields=[], $type=1) {
-        !extension_loaded('curl') ? EXIT('CURL NOT EXISTS!') : NULL;
-        !is_string($url) || strlen(trim($url)) == 0 ? EXIT('PLEASE CHECK YOUR URL!') : NULL;
-        $postFields = $type==1 ? http_build_query($postFields) : json_encode($postFields);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-        $result = curl_exec($ch);
-        if ($result === false) {
-            echo 'Curl error: ' . curl_error($ch) . '  ' . curl_errno($ch);;
-        }
-        curl_close($ch);
-        return json_decode($result, TRUE);
-    }
+    /**curl网络请求
+	 * @param string $url	请求url
+	 * @param array $data	请求参数
+	 * @param int $type	请求传参形式 1=array 2=json 3=queryString
+	 * @return array|bool|mixed|string
+	 */
+	public function curlRequestResource($url, $data=[], $type=1){
+		!extension_loaded('curl') ? EXIT('CURL NOT EXISTS!') : NULL;
+		if(strlen($url) == 0 || !is_string($url))    return false;
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		if(count($data))
+			curl_setopt($ch, CURLOPT_POST, 1);
+			if($type == 2) $data = json_encode($data);
+			if($type == 3) $data = http_build_query($data);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		$data = curl_exec($ch);;
+		curl_close($ch);
+		return $data;
+	}
 
     /**生成随机名字
      * @return string

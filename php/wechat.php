@@ -85,3 +85,51 @@
         api_log('abc.log',array('$resultsss'=>$resultsss));
 	==============================================================================================================================================================================================
 	*/
+
+
+
+/*===========================================================================================================================================================================================
+//生成小程序二维码
+//add by roger @2020-07-02
+function createQrCode() {
+    $appId = 'wxc1033c070554bf17';
+    $secret = '91e7f0c37f49cb1b9a41fe87a8ffc910';
+    //	获取access_token并缓存起来
+    if (!S('access_token')) {
+        $accesUrl = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $appId . '&secret=' . $secret;
+        $accessJson = $this->curlRequestResource($accesUrl);
+        S('access_token', json_decode($accessJson, true)['access_token'], 7200);
+    }
+    // 生成二维码 直接输出 或保存起来
+    $qrUrl = 'https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=' . S('access_token');
+    $qrData['path'] = 'lionfish_comshop/pages/type/index';
+    $qrCode = $this->curlRequestResource($qrUrl, $qrData, 2);
+    header('Content-Type: image/jpeg');
+    echo $qrCode;
+    //file_put_contents('./Uploads/image/qrcode/qrcode_1.png', $qrCode);
+}
+
+
+//curl网络请求
+//@param string $url 请求url
+//@param array $data 请求参数
+//@param int $type 请求传参形式 1=array 2=json 3=queryString
+//@return array|bool|mixed|string
+function curlRequestResource($url, $data = [], $type = 1) {
+    !extension_loaded('curl') ? EXIT('CURL NOT EXISTS!') : NULL;
+    if (strlen($url) == 0 || !is_string($url)) return false;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    if (count($data))
+        curl_setopt($ch, CURLOPT_POST, 1);
+    if ($type == 2) $data = json_encode($data);
+    if ($type == 3) $data = http_build_query($data);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    $data = curl_exec($ch);;
+    curl_close($ch);
+    return $data;
+}
+==============================================================================================================================================================================================
+*/
