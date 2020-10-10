@@ -2,11 +2,12 @@
 
 
 /**
- * RSA算法类
+ * Class Rsa RSA算法类
  * 签名及密文编码：base64字符串/十六进制字符串/二进制字符串流
  * 填充方式: PKCS1Padding（加解密）/NOPadding（解密）
  * 如密钥长度为1024 bit，则加密时数据需小于128字节，加上PKCS1Padding本身的11字节信息，所以明文需小于117字节
  */
+
 
 class Rsa {
 
