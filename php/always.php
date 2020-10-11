@@ -2,8 +2,8 @@
 /**PHP路径函数
  * dirname(path(string)) 函数返回路径中的目录部分。
  */
-// $path = 'F:/other/test/test.php';    //F:/other/test
-// echo dirname($path);
+// $path = 'F:/other/test/test.php';
+// echo dirname($path);     //F:/other/test
 
 /**PHP路径函数
  * getcwd() 获取当前工作目录
