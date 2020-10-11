@@ -1,177 +1,99 @@
 <?php
-/**
- * MCRYPT_RIJNDAEL_128 & CBC + 16位Key + 16位iv = openssl_encrypt(AES-128-CBC, 16位Key, 16位iv) = AES-128
- * MCRYPT_RIJNDAEL_128 & CBC + 24位Key + 16位iv = openssl_encrypt(AES-192-CBC, 24位Key, 16位iv) = AES-192
- * MCRYPT_RIJNDAEL_128 & CBC + 32位Key + 16位iv = openssl_encrypt(AES-256-CBC, 32位Key, 16位iv) = AES-256
- * ------------------------------------------------------------------------------------------------------
- * openssl_簇 options
- * 0 : 默认模式，自动对数据做 pkcs7 填充, 且返回的加密数据经过 base64 编码
- * 1 : OPENSSL_RAW_DATA, 自动对数据做 pkcs7 填充, 且返回的加密数据未经过 base64 编码
- * 2 : OPENSSL_ZERO_PADDING, 处理使用 NUL("\0") 的数据，故需手动使用 NUL("\0") 填充好数据再做加密处理，如未做则会报错
- * --------------------------------------------------------------------------------------------------------
- * 加密工具类
- */
 
-// mcrypt AES 固定使用 MCRYPT_RIJNDAEL_128 通过 key 的长度来决定具体使用的具体何种 AES
-$mcrypt_cipher = MCRYPT_RIJNDAEL_128;
-$mcrypt_mode = MCRYPT_MODE_CBC;
-
-// aes-128=16 aes-192=24 aes-256=32
-$key_size = 16;
-$key = get_random_str($key_size);
-// openssl AES 向量长度固定 16 位 这里为兼容建议固定长度为 16 位
-$iv_size = 16;
-$iv = get_random_str($iv_size);
-
-// 随机字符串
-function get_random_str($length = 16) {
-    $char_set = array_merge(range('a', 'z'), range('A', 'Z'), range('0', '9'));
-    shuffle($char_set);
-    return implode('', array_slice($char_set, 0, $length));
-}
 
 /**
- * 加密算法
- * @param  string $content 待加密数据
- * @param  string $key 加密key 注意 key 长度要求
- * @param  string $iv 加密向量 固定为16位可以保证与openssl的兼容性
- * @param  string $cipher 加密算法
- * @param  string $mode 加密模式
- * @param  bool $pkcs7 是否使用pkcs7填充 否则使用 mcrypt 自带的 NUL("\0") 填充
- * @param  bool $base64 是否对数据做 base64 处理 因加密后数据会有非打印字符 所以推荐做 base64 处理
- * @return string          加密后的内容
+ * Class Aes AES算法类
+ * openssl_get_cipher_methods() 获取可用加密算法(aes-128-cbc/aes-128-ecb/aes-192-cbc/aes-256-cbc....)
+ * openssl_cipher_iv_length(str $method) 获取密码初始化向量(iv)长度
+ * openssl_random_pseudo_bytes(int $length) 生成一个伪随机字节串
+ * openssl_encrypt ( string $data , string $method , string $key [, int $options = 0 [, string $iv = "" [, string &$tag = NULL [, string $aad = "" [, int $tag_length = 16 ]]]]] ) : string
  */
-function user_mcrypt_encrypt($content, $key, $iv, $cipher = MCRYPT_RIJNDAEL_128, $mode = MCRYPT_MODE_CBC, $pkcs7 = true, $base64 = true) {
-    //AES, 128 模式加密数据 CBC
-    $content = $pkcs7 ? addPKCS7Padding($content) : $content;
-    $content_encrypted = mcrypt_encrypt($cipher, $key, $content, $mode, $iv);
-    return $base64 ? base64_encode($content_encrypted) : $content_encrypted;
-}
 
-/**
- * 解密算法
- * @param  [type] $content_encrypted 待解密的内容
- * @param  [type] $key     加密key 注意 key 长度要求
- * @param  [type] $iv      加密向量 固定为16位可以保证与openssl的兼容性
- * @param  [type] $cipher  加密算法
- * @param  [type] $mode    加密模式
- * @param  bool $pkcs7 带解密内容是否使用了pkcs7填充 如果没使用则 mcrypt 会自动移除填充的 NUL("\0")
- * @param  bool $base64 是否对数据做 base64 处理
- * @return [type]          [description]
- */
-function user_mcrypt_decrypt($content_encrypted, $key, $iv, $cipher = MCRYPT_RIJNDAEL_128, $mode = MCRYPT_MODE_CBC, $pkcs7 = true, $base64 = true) {
-    //AES, 128 模式加密数据 CBC
-    $content_encrypted = $base64 ? base64_decode($content_encrypted) : $content_encrypted;
-    $content = mcrypt_decrypt($cipher, $key, $content_encrypted, $mode, $iv);
-    // 解密后的内容 要根据填充算法来相应的移除填充数
-    $content = $pkcs7 ? stripPKSC7Padding($content) : rtrim($content, "\0");
-    return $content;
-}
+class Aes {
 
-/**
- * PKCS7填充算法
- * @param string $source
- * @return string
- */
-function addPKCS7Padding($source, $cipher = MCRYPT_RIJNDAEL_128, $mode = MCRYPT_MODE_CBC) {
-    $source = trim($source);
-    $block = mcrypt_get_block_size($cipher, $mode);
-    $pad = $block - (strlen($source) % $block);
-    if ($pad <= $block) {
-        $char = chr($pad);
-        $source .= str_repeat($char, $pad);
-    }
-    return $source;
-}
+    private $method = null;  // 加密算法
+    private $option = null; // 填充方式
+    private $optionArr = [0, 1, 2, OPENSSL_RAW_DATA, OPENSSL_ZERO_PADDING];
+    private $key = null; // 加密密钥
+    private $iv = null; // 初始化向量
 
-/**
- * 移去PKCS7填充算法
- * @param string $source
- * @return string
- */
-function stripPKSC7Padding($source) {
-    $source = trim($source);
-    $char = substr($source, -1);
-    $num = ord($char);
-    if ($num == 62) {
-        return $source;
+    /**
+     * Aes constructor.
+     * @param mix $key  加密密钥可以传入自己生成的【字符串】，也可以【数组】形式传入，然后这边生成。形式为[data(string/int), method(md5/sha1)]，即返回数组第一个元素用第二个元素指定的hash算法的值
+     * @param string $iv 初始化向量可以直接传入，若不传入，即用【$key】根据加密算法截取相应长度
+     * @param string $method 加密算法
+     * @param int $option 填充方式
+     */
+    public function __construct($key=[], $iv='', $method='aes-128-cbc', $option=0) {
+        if(!extension_loaded('openssl')){
+            $this -> _error('please open the openssl extension first');
+        }
+        $this->method = $method;
+        $this->option = $option;
+        $this->key = (is_string($key) || is_integer($key)) && !empty($key) ? $key : ($this->_getKey($key) ? $this->_getKey($key) : $this->_error('server error'));
+        $this->iv = $iv && is_string($iv) ? ( strlen($iv) == openssl_cipher_iv_length($this->method) ? $iv : substr(MD5($iv), 0, openssl_cipher_iv_length($this->method)) ) : ( strlen($this->key) >= openssl_cipher_iv_length($this->method) ? substr($this->key, 0, openssl_cipher_iv_length($this->method)) : substr(MD5($this->key), 0, openssl_cipher_iv_length($this->method)));
+        if(!in_array($this->method, openssl_get_cipher_methods())){
+            $this -> _error('please check your method');
+        }
+        if(!in_array($this->option, $this->optionArr)){
+            $this -> _error('please check your option');
+        }
     }
 
-    $source = substr($source, 0, -$num);
-    return $source;
-}
-
-/**
- * NUL("\0")填充算法
- * @param string $source
- * @return string
- */
-function addZeroPadding($source, $cipher = MCRYPT_RIJNDAEL_128, $mode = MCRYPT_MODE_CBC) {
-    $source = trim($source);
-    // openssl 并没有提供加密cipher对应的数据块大小的api这点比较坑
-    $block = mcrypt_get_block_size($cipher, $mode);
-    $pad = $block - (strlen($source) % $block);
-    if ($pad <= $block) {
-        // $source .= str_repeat("\0", $pad);//KISS写法
-        // pack 方法 a 模式使用 NUL("\0") 对内容进行填充  A 模式则使用空白字符填充
-        $source .= pack("a{$pad}", ""); //高端写法
+    /**
+     * @param mix $data 加密/解密数据
+     * @param int $type 0加密 other解密
+     * @return string
+     */
+    public function run($data, $type=0){
+        return $type ? $this->_decrypt($data) : $this->_encrypt($data);
     }
-    return $source;
+
+    /**
+     * 加密
+     * @param $data 加密数据
+     * @return string
+     */
+    private function _encrypt($data){
+        return openssl_encrypt($data, $this->method, $this->key, $this->option, $this->iv);
+    }
+
+    /**
+     * 解密
+     * @param $data 解密数据
+     * @return string
+     */
+    private function _decrypt($data){
+        return openssl_decrypt($data, $this->method, $this->key, $this->option, $this->iv);
+    }
+
+    /**
+     * 获取key
+     * @param $data
+     * @return string
+     */
+    private function _getKey($data){
+        if(!is_array($data) || empty($data)){
+            $this -> _error('please check your key');
+        }
+        if(count($data)>1 && strtolower($data[1]) == 'sha1'){
+            $res = SHA1($data[0]);
+        }else{
+            $res = MD5($data[0]);
+        }
+        return $res;
+    }
+
+    /**
+     * 自定义错误输出
+     * @param $message
+     */
+    private function _error($message){
+        exit($message);
+    }
 }
 
-/**
- * NUL("\0")填充算法移除
- * @param string $source
- * @return string
- */
-function stripZeroPadding($source) {
-    return rtrim($source, "\0");
-}
-
-// 待加密内容
-$content = "hello world";
-
-echo '使用 NUL("\0") 填充算法 不对结果做 base64 处理:' . PHP_EOL;
-echo 'mcrypt 加密:' . PHP_EOL;
-var_dump($data = user_mcrypt_encrypt($content, $key, $iv, $mcrypt_cipher, $mcrypt_mode, false, false));
-echo 'openssl 解密:' . PHP_EOL;
-// 需经过 NUL("\0") 填充加密后被 base64_encode 的数据 解密后续手动移除 NUL("\0")
-var_dump(stripZeroPadding(openssl_decrypt(base64_encode($data), "AES-128-CBC", $key, OPENSSL_ZERO_PADDING, $iv)));
-echo 'openssl 加密:' . PHP_EOL;
-// 需对待处理的数据做 NUL("\0") 填充，且返回的数据被 base64_encode 编码了
-var_dump($data = base64_decode(openssl_encrypt(addZeroPadding($content), "AES-128-CBC", $key, OPENSSL_ZERO_PADDING, $iv)));
-echo 'mcrypt 解密:' . PHP_EOL;
-var_dump(user_mcrypt_decrypt($data, $key, $iv, $mcrypt_cipher, $mcrypt_mode, false, false));
-echo PHP_EOL;
-
-echo '使用 NUL("\0") 填充算法 对结果做 base64 处理:' . PHP_EOL;
-echo 'mcrypt 加密:' . PHP_EOL;
-var_dump($data = user_mcrypt_encrypt($content, $key, $iv, $mcrypt_cipher, $mcrypt_mode, false, true));
-echo 'openssl 解密:' . PHP_EOL;
-var_dump(stripZeroPadding(openssl_decrypt($data, "AES-128-CBC", $key, OPENSSL_ZERO_PADDING, $iv)));
-echo 'openssl 加密:' . PHP_EOL;
-var_dump($data = openssl_encrypt(addZeroPadding($content), "AES-128-CBC", $key, OPENSSL_ZERO_PADDING, $iv));
-echo 'mcrypt 解密:' . PHP_EOL;
-var_dump(user_mcrypt_decrypt($data, $key, $iv, $mcrypt_cipher, $mcrypt_mode, false, true));
-echo PHP_EOL;
-
-echo "使用 pkcs7 填充算法 不对结果做 base64 处理" . PHP_EOL;
-echo 'mcrypt 加密:' . PHP_EOL;
-var_dump($data = user_mcrypt_encrypt($content, $key, $iv, $mcrypt_cipher, $mcrypt_mode, true, false));
-echo 'openssl 解密:' . PHP_EOL;
-var_dump(openssl_decrypt($data, "AES-128-CBC", $key, OPENSSL_RAW_DATA, $iv));
-echo 'openssl 加密:' . PHP_EOL;
-var_dump($data = openssl_encrypt($content, "AES-128-CBC", $key, OPENSSL_RAW_DATA, $iv));
-echo 'mcrypt 解密:' . PHP_EOL;
-var_dump(user_mcrypt_decrypt($data, $key, $iv, $mcrypt_cipher, $mcrypt_mode, true, false));
-echo PHP_EOL;
-
-echo "使用 pkcs7 填充算法 对结果做 base64 处理（推荐）：" . PHP_EOL;
-echo 'mcrypt 加密:' . PHP_EOL;
-var_dump($data = user_mcrypt_encrypt($content, $key, $iv, $mcrypt_cipher, $mcrypt_mode, true, true));
-echo 'openssl 解密:' . PHP_EOL;
-var_dump(openssl_decrypt($data, "AES-128-CBC", $key, 0, $iv));
-echo 'openssl 加密:' . PHP_EOL;
-var_dump($data = openssl_encrypt($content, "AES-128-CBC", $key, 0, $iv));
-echo 'mcrypt 解密:' . PHP_EOL;
-var_dump(user_mcrypt_decrypt($data, $key, $iv, $mcrypt_cipher, $mcrypt_mode, true, true));
+$str = 'hello world';
+$obj = new Aes();
+$scr = $obj -> run($str);
+echo $obj -> run($scr, 1);
