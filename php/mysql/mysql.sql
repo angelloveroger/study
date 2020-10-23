@@ -8,7 +8,7 @@ select UNIX_TIMESTAMP(CAST(SYSDATE() AS DATE) + INTERVAL 1 DAY);
 select * from member m where not exists (select 1 from member_info mi where m.id=mi.uid);
 
 -- 2.添加表备注
-ALTER TABLE table_name COMMENT ‘新的表备注’;
+ALTER TABLE table_name COMMENT '新的表备注';
 
 -- 3.添加字段
 ALTER TABLE table_name ADD column_name INT(11);
@@ -136,6 +136,19 @@ set global slow_query_log=on;
 
 -- 修改表自增值
     -- ALTER TABLE 表名 AUT0_INCREMENT=50
+
+-- 查看SQL执行性能
+    -- EXPLAIN sql语句
+
+-- 清空表（自增值归零）
+    -- TRUNCATE TABLE table_name
+
+-- 商品表，分类ID以,分割（1，2，5，8）
+    -- SELECT goods.*, GROUP_CONCAT(category.name) FROM goods,category WHERE FIND_IN_SET(category.id, goods.cate_ids) GROUP BY goods.id
+
+
+
+
 
 
 
