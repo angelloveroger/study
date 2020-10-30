@@ -11,7 +11,7 @@ class cacheFile {
      *    构造方法组装静态缓存存放路径
      * */
     public function __construct() {
-        $this->_dir = dirname(__FILE__) . '/files/';
+        $this->_dir = dirname(__FILE__) . '/cacheFiles/';
     }
 
     /*  写入/读取/删除缓存

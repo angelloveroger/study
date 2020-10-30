@@ -5,7 +5,6 @@
      */
     include_once './returnData.php';
     include_once './cacheFile.php';
-    include_once './Db.php';
 
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
     $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : 5;
@@ -16,22 +15,15 @@
     $offset = ($page-1) * $pageSize;
     $arr = array();
     $cache = new cacheFile();
-    if(!$arr = $cache -> cacheData('getAppData_1_'.$page.'_'.$pageSize)) {
-        //  没有缓存数据，查询数据库
-        $sql = "select * from goods_class where is_show=1 order by id desc limit  " . $offset . ',' . $pageSize;
-        try {
-            $connect = Db::getInstance()->connect();
-        } catch (Exception $e) {
-            return returnData::show(403, '数据库连接异常！');
-        }
-
-        $res = mysql_query($sql, $connect);
-
-        while ($rows = mysql_fetch_assoc($res)) {
-            $arr[] = $rows;
-        }
-        //  将查出数据生成静态缓存
-        $cache->cacheData('getAppData_1_'.$page.'_'.$pageSize, $arr, 360);
+    if(!$arr = $cache -> cacheData('data_'.$page)) {
+        $arr = [
+            ['user_name' => 'roger', 'age'=>32],
+            ['user_name' => 'angel', 'age'=>18],
+            ['user_name' => 'alber', 'age'=>56],
+            ['user_name' => 'venus', 'age'=>23],
+            ['user_name' => 'tesla', 'age'=>65],
+        ];
+        $cache->cacheData('data_'.$page, $arr, 360);
     }
 
     if(count($arr)>0){

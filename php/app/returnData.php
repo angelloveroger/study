@@ -106,9 +106,9 @@
 
 
 
-    $arr = array(
-        'sex' => 'man',
-        'name' => 'roger',
-        'type' => array(8585,1314)
-    );
-    returnData::returnXml(200, 'success',$arr);
+    // $arr = array(
+    //     'sex' => 'man',
+    //     'name' => 'roger',
+    //     'type' => array(8585,1314)
+    // );
+    // returnData::returnXml(200, 'success',$arr);
