@@ -1,7 +1,5 @@
 > #### 1.RSA非对称加密
 > ***
-
-> ***
 > *一.`RSA加密`在实际应用中的流程（`描述`）*
 >> *（1）A先对发送消息【`data`】执行哈希运算（$HASH$），得到消息摘要【`hashStr`】；*  
 >>> 
@@ -9,17 +7,17 @@
 >> *（2）然后A用自己的私钥【`priA`】对消息摘要【`hashStr`】加密，生成数字签名【`sign`】；*  
 >>> 
 >>>     openssl_private_encrypt($hashStr, $sign, $priA);
->> *（3）把数字签名【`sign`】加在消息正文后面，一起发送给B。当然，为了防止消息被窃听，对消息内容>【`data`】使用B的公钥【`pubB`】进行加密得到密文【`pubEncrypted`】，但这个不属于数字签名范畴；*   
+>> *（3）把数字签名【`sign`】加在消息正文后面，一起发送给B。当然，为了防止消息被窃听，对消息内容【`data`】使用B的公钥【`pubB`】进行加密得到密文【`pubEncrypted`】，但这个不属于数字签名范畴；*   
 >>> 
 >>>     openssl_public_encrypt($data, $pubEncrypted, $pubB);
->> *（4）B收到消息后用A的公钥【`pubA`】对数字签名【`sign`】解密得到内容摘要【`hashStr`】，成功则代表消>息确实来自A，失败说明有人冒充，此时数字签名起到了身份认证的作用；*  
+>> *（4）B收到消息后用A的公钥【`pubA`】对数字签名【`sign`】解密得到内容摘要【`hashStr`】，成功则代表消息确实来自A，失败说明有人冒充，此时数字签名起到了身份认证的作用；*  
 >>> 
 >>>     openssl_public_decrypt($sign, $hashStr, $pubA);
->> *（5）B对消息正文通过自己的私钥【`priB`】解密后执行哈希运算（$HASH$）得到新的内容摘要【`hashStrB`】>；*  
+>> *（5）B对消息正文通过自己的私钥【`priB`】解密后执行哈希运算（$HASH$）得到新的内容摘要【`hashStrB`】；*  
 >>> 
 >>>     openssl_private_decrypt($pubEncrypted, $data, $priB);      
 >>>     $hashStrB = MD5($data);
->> *（6）B会对比第4步得到的数字签名的【`hashStr`】值和自己运算得到的【`hashStrB`】值，一致则说明邮件未被>篡改。此时数字签名用于数据完整性的验证。*           
+>> *（6）B会对比第4步得到的数字签名的【`hashStr`】值和自己运算得到的【`hashStrB`】值，一致则说明邮件未被篡改。此时数字签名用于数据完整性的验证。*           
 >>>
 >>>     $hashStr == $hashStrB ? true : false;
 >>> ***
