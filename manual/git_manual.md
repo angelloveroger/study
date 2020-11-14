@@ -45,8 +45,10 @@
 |git merge branchName   |合并分支   |branchName:分支名  这个是要被合并的分支，即你当前所在的不是这个分支|
 |git branch [-d] branchName   |删除分支   |branchName:分支名，仅删除被合并的分支|
 |   |-D |被删除的分支未被合并，将不能直接删除，需要用到-D参数|
----
+
+> ---
 > |配置作用域|配置路径|
+> |:-:|:-:|
 > |--system|/etc/gitconfig|
 > |--global|~/.gitconfig|
 > |--local|.git/config/|
@@ -55,8 +57,10 @@
 > |:-:|:-:|
 > |工作区|已修改/未修改|
 > |暂存区|已暂存|
-> |版本库/本地仓||
----
+> |版本库/本地仓|已提交|
+> ---
+
+> ---
 > |命令|作用|说明|文件状态变更|
 > |:-:|:-:|:-:|:-:|
 > |`git init`| 初始化`本地仓库`|在当前目录下创建`.git`目录用以追踪版本库中文件的变更||
@@ -65,25 +69,29 @@
 > |`git rm --cached [file]`|移除`暂存区`中的文件|删除`暂存区`文件，保留`工作区`文件，并保留当前修改|`已暂存`-->`已修改`|
 > |`git checkout -- [file]`|撤销修改|1.修改之后未添加到`暂存区`，执行命令会回到`版本库`中的状态；2.添加到`暂存区`之后又作了修改，执行命令会回到`暂存区`的状态||
 > |`git log`|提交日志|可以倒序显示`提交ID`，`提交用户`，`提交时间`||
+> ---
 
----
  >---
 >###  常见问题说明
->
-> ***git push的时候每次都要输入用户名和密码***
+> ---
+> ***1.git push的时候每次都要输入用户名和密码***
 > - 原因是在添加远程库的时候使用了https的方式。所以每次都要用https的方式push到远程库
 >
->  **1.查看使用的传输协议:**
+>>  **①.查看使用的传输协议:**
+>>
 >>      $ git remote -v   
 >>      origin  https://github.com/angelloveroger/study (fetch)
 >>      origin  https://github.com/angelloveroger/study (push)
 >>
->  **2.重新设置成ssh的方式:**  
+>>  **②.重新设置成ssh的方式:**  
+>>
 >>     $ git remote rm origin  
 >>     $ git remote add origin git@github.com:username/repository.git  
->>     $ git push -u origin master
->  **3.再次查看使用的传输协议:**
+>>     $ git push -u origin master   
+>>
+>>  **③.再次查看使用的传输协议:**
+>>
 >>     $ git remote -v
 >>     origin  git@github.com:angelloveroger/study.git (fetch)
 >>     origin  git@github.com:angelloveroger/study.git (push)
->> ---
+> ---
