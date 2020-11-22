@@ -7,7 +7,7 @@ select UNIX_TIMESTAMP(CAST(SYSDATE() AS DATE) + INTERVAL 1 DAY);
 -- 1.查询m表存在而mi表不存在的数据
 select * from member m where not exists (select 1 from member_info mi where m.id=mi.uid);
 
--- 2.添加表备注
+-- 2.添加表备注c
 ALTER TABLE table_name COMMENT '新的表备注';
 
 -- 3.添加字段
