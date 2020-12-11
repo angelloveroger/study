@@ -48,7 +48,7 @@
 >>> *2.4.查看 master 主数据库状态，这些数据用于 slave 设置：* 
 >>>> 
 >>>>      mysql> show master status;
->>>> - File 为使用的日志文件名字，Position 为使用的文件位置，这两个参数须记下，配置从服务器时会用到  
+>>>>  File 为使用的日志文件名字，Position 为使用的文件位置，这两个参数须记下，配置从服务器时会用到  
 >> ---
 >> ***3.配置 slave 服务器***
 >>> *3.1.登录 slave从服务器，修改mysqld的配置文件，一般配置文件位于 `/etc/my.cnf` 或者 `/etc/mysql/my.cnf`：*
@@ -66,7 +66,7 @@
 >>>>
 >>>>     systemctl restart mariadb
 >>> *3.3.配置 slave 从服务器关联 master 主服务器*   
->>>> *3.3.1.进入 slave 从服务器MySQL：*
+>>>>> *3.3.1.进入 slave 从服务器MySQL：*
 >>>>>
 >>>>>     mysql -uroot -p123456
 >>>> *3.3.2.配置关联到 master 主服务器选择项：*
@@ -87,7 +87,7 @@
 >>>>>       Slave_SQL_Running: Yes
 >>>>> - *如果有其中一项为 `No`，需要重新更新 slave 从服务器与 master 主服务器的关联：*   
 >>>>>         
->>>>> 1.重启 master 主服务器 mysql 服务：
+>>>>>> 1.重启 master 主服务器 mysql 服务：
 >>>>>>    
 >>>>>>     systemctl restart mysql
 >>>>>>  或者
