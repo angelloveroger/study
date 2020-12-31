@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>fsBanner-实用的网站响应式Banner手风琴插件|DEMO2_jQuery之家-自由分享jQuery、html5、css3的插件库</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<link rel="stylesheet" type="text/css" href="css/fsbanner.css">
+	<style type="text/css">
+		.ex{
+			width: 800px;
+			margin:0 auto;
+		}
+		.fsbanner{margin-top: 10px;}
+	</style>
+</head>
+<body>
+	<article class="htmleaf-container">
+		<header class="htmleaf-header">
+			<h1>fsBanner-实用的网站响应式Banner手风琴插件 <span>A simple jQuery plugin that allows you to create a stacked banner</span></h1>
+			<div class="htmleaf-links">
+				<a class="htmleaf-icon icon-htmleaf-home-outline" href="http://www.htmleaf.com/" title="jQuery之家" target="_blank"><span> jQuery之家</span></a>
+				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="http://www.htmleaf.com/jQuery/Accordion/201601072995.html" title="返回下载页" target="_blank"><span> 返回下载页</span></a>
+			</div>
+			<div class="htmleaf-demo center">
+			  <a href="index.html">默认</a>
+			  <a href="index2.html" class="current">带标题</a>
+			  <a href="index3.html">鼠标滑过</a>
+			  <a href="index4.html">带文字介绍</a>
+			  <a href="index5.html">带文字介绍（隐藏）</a>
+			  <a href="index6.html">onChanged事件</a>
+			</div>
+		</header>
+		<div class='ex' name='2'>
+			<h1>Example 2</h1>
+			<div>With names (new span on the html for each banner). Click on the images!</div>
+			<div class='fsbanner' >
+				<div style='background-image:url(images/black.jpg)'>
+					<span class='name'>BLACK</span>
+				</div>
+				<div style='background-image:url(images/brown.jpg)'>
+					<span class='name'>BROWN</span>					
+				</div>
+				<div style='background-image:url(images/panda.jpg)'>
+					<span class='name'>PANDA</span>					
+				</div>
+				<div style='background-image:url(images/polar.jpg)'>
+					<span class='name'>POLAR</span>					
+				</div>
+			</div>
+		</div>
+		<footer class="related">
+		    <h3>如果你喜欢这个插件，那么你可能也喜欢:</h3>
+		    <a href="http://www.htmleaf.com/jQuery/Accordion/201510122659.html">
+			  <img src="related/1.jpg" width="300" alt="简洁实用的jQuery手风琴插件"/>
+			  <h3>简洁实用的jQuery手风琴插件</h3>
+			</a>
+			<a href="http://www.htmleaf.com/jQuery/Accordion/201507042163.html">
+			  <img src="related/2.jpg" width="300" alt="简单的jQuery响应式手风琴特效"/>
+			  <h3>简单的jQuery响应式手风琴特效</h3>
+			</a>
+		</footer>
+	</article>
+	
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="js/fsbanner.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.ex[name=2] .fsbanner').fsBanner();
+		});
+	</script>
+</body>
+</html>

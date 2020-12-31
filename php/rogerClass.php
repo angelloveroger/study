@@ -164,14 +164,14 @@ class rogerClass {
      * @param $data       记录数据
      */
     public function _log($file_name, $data) {
-    $path = './Logs/' . date('Y-m') . '/' . date('d') . '/';
-    if (!is_dir($path)) {
-        mkdir($path, 0777, true);
-        @chmod($path, 0777);
+        $path = './Logs/' . date('Y-m') . '/' . date('d') . '/';
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+            @chmod($path, 0777);
+        }
+        $real_name = $path . $file_name;
+        file_put_contents($real_name, "===============" . date('Y-m-d H:i:s') . '===============' . "\r\n" . var_export($data, TRUE) . "\r\n\r\n\r\n", FILE_APPEND);
     }
-    $real_name = $path . $file_name;
-    file_put_contents($real_name, "==============="  . date('Y-m-d H:i:s') . '===============' . "\r\n" . var_export($data, TRUE) . "\r\n\r\n\r\n", FILE_APPEND);
-}
     //===================================================================记录日志 end======================================================================
 
 
@@ -488,27 +488,27 @@ class rogerClass {
 
     //===================================================================curl start======================================================================
     /**curl网络请求
-	 * @param string $url	请求url
-	 * @param array $data	请求参数
-	 * @param int $type	请求传参形式 1=array 2=json 3=queryString
-	 * @return array|bool|mixed|string
-	 */
-	public function curlRequestResource($url, $data=[], $type=1){
-		!extension_loaded('curl') ? EXIT('CURL NOT EXISTS!') : NULL;
-		if(strlen($url) == 0 || !is_string($url))    return false;
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_URL, $url);
-		if(count($data))
-			curl_setopt($ch, CURLOPT_POST, 1);
-			if($type == 2) $data = json_encode($data);
-			if($type == 3) $data = http_build_query($data);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-		$data = curl_exec($ch);;
-		curl_close($ch);
-		return $data;
-	}
+     * @param string $url 请求url
+     * @param array $data 请求参数
+     * @param int $type 请求传参形式 1=array 2=json 3=queryString
+     * @return array|bool|mixed|string
+     */
+    public function curlRequestResource($url, $data = [], $type = 1) {
+        !extension_loaded('curl') ? EXIT('CURL NOT EXISTS!') : NULL;
+        if (strlen($url) == 0 || !is_string($url)) return false;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        if (count($data))
+            curl_setopt($ch, CURLOPT_POST, 1);
+        if ($type == 2) $data = json_encode($data);
+        if ($type == 3) $data = http_build_query($data);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        $data = curl_exec($ch);;
+        curl_close($ch);
+        return $data;
+    }
     //===================================================================curl end======================================================================
 
 
@@ -516,8 +516,8 @@ class rogerClass {
     /**格式化输出数组
      * @param $data
      */
-    public function pt($data){
-        if(!is_array($data)) return false;
+    public function pt($data) {
+        if (!is_array($data)) return false;
         echo '<pre>';
         print_r($data);
     }
@@ -528,29 +528,29 @@ class rogerClass {
 
 //===================================================================测试文件上传 start======================================================================
 $obj = new rogerClass();
-    //echo '<pre>';print_r($_FILES);exit;
-    $file = $_FILES;
-    $obj->getFiles($file);
-    /*  文件上传需要配置form表单的提交方式为  method=‘post’
-     *  还要配置 enctype='multipart/form-data'
-     *
-     *  文件上传变量数组
-     *      上传文件名     [name] => abc.jpg
-     *      上传文件类型     [type] => image/jpeg
-     *      上传临时文件名     [tmp_name] => E:\xampp\tmp\php39.tmp
-     *      上传错误信息     [error] => 0
-     *      上传文件大小    [size] => 0
-     *
-     *  move_uploaded_file(临时文件，路径+文件名) 将服务器上的临时文件移动到指定目录下，返回bool值
-     *  copy(临时文件，路径+文件名) 将服务器上的临时文件拷贝到指定目录下，返回bool值
-     * */
+//echo '<pre>';print_r($_FILES);exit;
+$file = $_FILES;
+$obj->getFiles($file);
+/*  文件上传需要配置form表单的提交方式为  method=‘post’
+ *  还要配置 enctype='multipart/form-data'
+ *
+ *  文件上传变量数组
+ *      上传文件名     [name] => abc.jpg
+ *      上传文件类型     [type] => image/jpeg
+ *      上传临时文件名     [tmp_name] => E:\xampp\tmp\php39.tmp
+ *      上传错误信息     [error] => 0
+ *      上传文件大小    [size] => 0
+ *
+ *  move_uploaded_file(临时文件，路径+文件名) 将服务器上的临时文件移动到指定目录下，返回bool值
+ *  copy(临时文件，路径+文件名) 将服务器上的临时文件拷贝到指定目录下，返回bool值
+ * */
 
 
-    /*  php.ini关于文件上传到配置选项
-     *  file_uploads = on       支持http上传
-     *  upload_tmp_dir =        临时文件存储位置
-     *  post_max_size = 8M      POST方式发送数据的最大值(默认8M)
-     *  upload_max_filesize = 2M  允许上传文件的最大值(默认2M)
-     *  max_file_uploads = 20   允许一次上传文件数的最大值(默认20)
-     * */
+/*  php.ini关于文件上传到配置选项
+ *  file_uploads = on       支持http上传
+ *  upload_tmp_dir =        临时文件存储位置
+ *  post_max_size = 8M      POST方式发送数据的最大值(默认8M)
+ *  upload_max_filesize = 2M  允许上传文件的最大值(默认2M)
+ *  max_file_uploads = 20   允许一次上传文件数的最大值(默认20)
+ * */
 //===================================================================测试文件上传 end======================================================================
