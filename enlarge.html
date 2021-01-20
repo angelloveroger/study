@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./javascript/jquery/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+    <style>
+        .image_normal{
+            width: 200px;
+            height: auto;
+            cursor: zoom-in;
+        }
+        .image_large{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,.3);
+            z-index: 100;
+            display: none;
+            cursor: zoom-out;
+        }
+        .image_large{
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 图片放大 -->
+<div class=" ">
+    <img src="./edu-img/1.jpg" class="image_normal">
+    <div   class="image_large"></div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(".image_normal").click(function () {
+            var large_image = '<img src= ' + $(this).attr("src") + '></img>';
+            $('.image_large').html($(large_image).css({
+                display:"block",
+                height: 'auto',
+                width: '100%',
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%,-50%)",
+            }, 500));
+            $('.image_large').css( "display","block" );
+        });
+        $('.image_large').click(function(){
+            $(this).css( "display","none" );
+        })
+    });
+</script>
+</body>
+</html>
